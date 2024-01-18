@@ -2,10 +2,8 @@ import csv
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
-import os
 
-current_directory = os.getcwd()
-file_path = os.path.join(current_directory, "data.csv")
+file_path = "finanses/data.csv" #šeit jānorada ceļš līdz datnei ar informāciju
 
 def load_data():
     total_income = 0
