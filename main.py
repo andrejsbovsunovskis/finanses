@@ -15,7 +15,7 @@ def load_data():
         with open("data.csv", newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                tree.insert("", tk.END, values=(row["Datums"], row["Apraksts"], row["Tips"], row["Summa"]), tags=(row["Tips"],))
+                tree.insert("", 0, values=(row["Datums"], row["Apraksts"], row["Tips"], row["Summa"]), tags=(row["Tips"],))
                 if row["Tips"] == "Ienākumi":
                     total_income += float(row["Summa"])
                 elif row["Tips"] == "Izmaksas":
