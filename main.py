@@ -73,7 +73,6 @@ def add_record_window():
     tk.Label(add_window, text="Summa:").grid(row=3, column=0)
     tk.Entry(add_window, textvariable=amount_var).grid(row=3, column=1)
 
-    # Pievienojam pogu ieraksta saglabāšanai
     tk.Button(add_window, text="Saglabāt", command=save_record).grid(row=4, column=0, columnspan=2)
 
 # Veidojam programmas logu
@@ -82,12 +81,17 @@ root.geometry("800x800")
 root.title("Finanses")
 
 # Veidojam Treeview
-tree = ttk.Treeview(root, columns=("Datums", "Apraksts", "Tips", "Summa"), show="headings")
+tree_frame = ttk.Frame(root)
+tree_frame.pack(expand=True, fill='both')
+vsb = ttk.Scrollbar(tree_frame, orient="vertical")
+vsb.pack(side='right', fill='y')
+tree = ttk.Treeview(tree_frame, columns=("Datums", "Apraksts", "Tips", "Summa"), show="headings")
 tree.heading("Datums", text="Datums")
 tree.heading("Apraksts", text="Apraksts")
 tree.heading("Tips", text="Tips")
 tree.heading("Summa", text="Summa")
-tree.pack(padx=10, pady=10)
+tree.pack(expand=True, fill='both')
+vsb.config(command=tree.yview)
 
 # Iemaksu un izmaksu krāsošana
 tree.tag_configure("Ienākumi", background="pale green")
@@ -96,7 +100,6 @@ tree.tag_configure("Izmaksas", background="light coral")
 # Ielādējam datus no CSV faila
 load_data()
 
-# Pievienojam pogu jauna ieraksta pievienošanai
 add_button = tk.Button(root, text="Pievienot ierakstu", command=add_record_window, bg="pale green")
 add_button.pack(side=tk.TOP, padx=5)
 delete_button = tk.Button(root, text="Dzēst ierakstu", command=delete_record, bg="lightcoral")
