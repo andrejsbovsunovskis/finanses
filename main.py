@@ -4,6 +4,11 @@ from tkinter import ttk
 from datetime import datetime
 
 def load_data():
+    # Iztukšot koku, lai korekti strādātu datu atjaunošana
+    for item in tree.get_children():
+        tree.delete(item)
+
+    # Mēģinam atvērt datni, ja tās nav, izveidojam jaunu
     try:
         with open("data.csv", newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
@@ -14,6 +19,26 @@ def load_data():
             fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
+
+# Dzēšana
+def delete_record():
+    selected_item = tree.selection()
+    if not selected_item:
+        return  # Kad nekas netiek izvēlēts, nekas nenotiks
+    else:
+        with open("data.csv", mode="r", newline='', encoding="utf-8") as csvfile:
+            rows = list(csv.DictReader(csvfile))
+
+        index = tree.index(selected_item)
+        del rows[index]
+
+        with open("data.csv", mode="w", newline='', encoding="utf-8") as csvfile:
+            fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
+
+        load_data()
 
 def add_record_window():
     add_window = tk.Toplevel(root)
@@ -53,7 +78,7 @@ def add_record_window():
 
 # Veidojam programmas logu
 root = tk.Tk()
-root.geometry("1000x800")
+root.geometry("800x800")
 root.title("Finanses")
 
 # Veidojam Treeview
@@ -72,7 +97,10 @@ tree.tag_configure("Izmaksas", background="light coral")
 load_data()
 
 # Pievienojam pogu jauna ieraksta pievienošanai
-tk.Button(root, text="Pievienot ierakstu", command=add_record_window).pack(pady=10)
+add_button = tk.Button(root, text="Pievienot ierakstu", command=add_record_window, bg="pale green")
+add_button.pack(side=tk.TOP, padx=5)
+delete_button = tk.Button(root, text="Dzēst ierakstu", command=delete_record, bg="lightcoral")
+delete_button.pack(side=tk.TOP, padx=5)
 
 # Palaižam programmas galveno ciklu
 root.mainloop()
