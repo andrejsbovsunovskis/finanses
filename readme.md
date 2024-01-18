@@ -8,12 +8,12 @@ Projekts ir izstrādāts, lai lietotāji varētu ērti un pēc iespējas ātrāk
 
 - **csv**: Bibliotēka darbam ar CSV datni. Tā tiek izmantota, lai glabātu informāciju par transakcijām.
 - **tkinter**: Grafiskā bibliotēka ērtai un vienkāršai lietotāja saskarnes izveidei.
-- **ttk (tematizētais Tkinter)**: Tkinter paplašinājums, kas tika izmantots koka struktūras veidošanai.
+- **ttk (Tkinter)**: Tkinter paplašinājums, kas tika izmantots koka struktūras veidošanai.
 - **datetime**: Bibliotēka darbam ar datumu un laiku. Tā tika izmantota, lai automātiski ievadītu transakcijas datumu.
 
 ## Programmas lietošana
 
-1. **Programmas Palaišana**: Palaidiet ***"main.py"*** skriptu, un tiks atvērts galvenais programmas logs ar pašreizējo bilanci un transakciju sarakstu.
+1. **Programmas palaišana**: Palaidiet ***"main.py"*** skriptu, un tiks atvērts galvenais programmas logs ar pašreizējo bilanci un transakciju sarakstu.
 
 2. **Jaunas transakcijas pievienošana**:
    - Nospiediet pogu "Pievienot ierakstu", lai atvērtu jaunu transakciju ievades logu.
