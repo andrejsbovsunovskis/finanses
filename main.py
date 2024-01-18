@@ -9,7 +9,7 @@ def load_data():
         with open("data.csv", newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                tree.insert("", "end", values=(row["Datums"], row["Apraksts"], row["Tips"], row["Summa"]))
+                tree.insert("", tk.END, values=(row["Datums"], row["Apraksts"], row["Tips"], row["Summa"]), tags=(row["Tips"],))
     except FileNotFoundError:
         with open("data.csv", mode="w", newline='', encoding="utf-8") as csvfile:
             fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
@@ -28,6 +28,10 @@ tree.heading("Apraksts", text="Apraksts")
 tree.heading("Tips", text="Tips")
 tree.heading("Summa", text="Summa")
 tree.pack(padx=10, pady=10)
+
+# Iemaksu un izmaksu krāsošana
+tree.tag_configure("Ienākumi", background="pale green")
+tree.tag_configure("Izmaksas", background="light coral")
 
 # Ielādējam datus no CSV faila
 load_data()
