@@ -2,6 +2,10 @@ import csv
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
+import os
+
+current_directory = os.getcwd()
+file_path = os.path.join(current_directory, "data.csv")
 
 def load_data():
     total_income = 0
@@ -12,7 +16,7 @@ def load_data():
 
     # Mēģinam atvērt datni, ja tās nav, izveidojam jaunu
     try:
-        with open("data.csv", newline='', encoding="utf-8") as csvfile:
+        with open(file_path, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 tree.insert("", 0, values=(row["Datums"], row["Apraksts"], row["Tips"], row["Summa"]), tags=(row["Tips"],))
@@ -21,7 +25,7 @@ def load_data():
                 elif row["Tips"] == "Izmaksas":
                     total_expenses += float(row["Summa"])
     except FileNotFoundError:
-        with open("data.csv", mode="w", newline='', encoding="utf-8") as csvfile:
+        with open(file_path, mode="w", newline='', encoding="utf-8") as csvfile:
             fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
@@ -40,13 +44,13 @@ def delete_record():
     if not selected_item:
         return  # Kad nekas netiek izvēlēts, nekas nenotiks
     else:
-        with open("data.csv", mode="r", newline='', encoding="utf-8") as csvfile:
+        with open(file_path, mode="r", newline='', encoding="utf-8") as csvfile:
             rows = list(csv.DictReader(csvfile))
 
         index = tree.index(selected_item)
         del rows[index]
 
-        with open("data.csv", mode="w", newline='', encoding="utf-8") as csvfile:
+        with open(file_path, mode="w", newline='', encoding="utf-8") as csvfile:
             fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
@@ -66,7 +70,7 @@ def add_record_window():
 
     # Funkcija, lai saglabātu jaunu ierakstu
     def save_record():
-        with open("data.csv", mode="a", newline='', encoding="utf-8") as csvfile:
+        with open(file_path, mode="a", newline='', encoding="utf-8") as csvfile:
             fieldnames = ["Datums", "Apraksts", "Tips", "Summa"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
